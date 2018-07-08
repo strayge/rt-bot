@@ -37,7 +37,6 @@ before_script:
 script:
   - set -e
   - echo "Waiting nginx-bot to launch on nginx-bot:443..."
-  - sleep 480
   - while ! wget --no-check-certificate https://localhost/ping &> /dev/null; do sleep 1; done
   - echo "Waiting $BOTS_WAIT_TIMEOUT seconds to ensure if all bots are ready..."; sleep "$BOTS_WAIT_TIMEOUT"
   - DOCKER_REGISTRY_LOGIN= DOCKER_REGISTRY_PASSWORD= DEPLOY_USER= DEPLOY_PASSWD= BOT_BASE_URL="https://localhost" python ci/run_bot_tests.py . || (docker-compose logs -t && exit 1)
